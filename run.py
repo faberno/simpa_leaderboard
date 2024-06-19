@@ -37,8 +37,6 @@ if DEBUG:
     app.logger.info('DBMS             = ' + app_config.SQLALCHEMY_DATABASE_URI)
     app.logger.info('ASSETS_ROOT      = ' + app_config.ASSETS_ROOT )
 
-# for command in [gen_api, ]:
-#     app.cli.add_command(command)
     
 if __name__ == "__main__":
     app.run()
