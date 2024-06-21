@@ -29,8 +29,7 @@ class Member(db.Model):
         self.team_name = team_name
         self.img_link = f"https://github.com/{name}.png"
 
-
-# class User(db.Model):
-#     github_username = db.Column(db.String, primary_key=True)
-#     team = db.Column(db.String, db.ForeignKey('team.name'))
-#     img_path = db.Column(db.String)
+class Achievement(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String, nullable=False)
+    points = db.Column(db.Integer, nullable=False)

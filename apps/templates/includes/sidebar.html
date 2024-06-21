@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/index.html">
+          <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/index">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22,7H16.333V4a1,1,0,0,0-1-1H8.667a1,1,0,0,0-1,1v7H2a1,1,0,0,0-1,1v8a1,1,0,0,0,1,1H22a1,1,0,0,0,1-1V8A1,1,0,0,0,22,7ZM7.667,19H3V13H7.667Zm6.666,0H9.667V5h4.666ZM21,19H16.333V9H21Z"/></svg>
             </div>
@@ -19,75 +19,10 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {% if 'teams' in segment %} active {% endif %}" href="/teams.html">
+          <a class="nav-link {% if 'teams' in segment %} active {% endif %}" href="/teams">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M774.4 742.4c0-44.8-12.8-89.6-38.4-121.6C691.2 569.6 640 544 576 544c-38.4 0-76.8 0-115.2 0-44.8 0-83.2 12.8-121.6 38.4-44.8 32-70.4 76.8-76.8 128-6.4 57.6 0 121.6-6.4 185.6 6.4 0 19.2 6.4 25.6 6.4 76.8 19.2 147.2 38.4 224 38.4 44.8 0 96 0 140.8-6.4 38.4-6.4 76.8-19.2 115.2-32 6.4 0 6.4-6.4 6.4-12.8C774.4 838.4 774.4 787.2 774.4 742.4z"  /><path d="M358.4 531.2c12.8-6.4 19.2-6.4 32-12.8-38.4-38.4-57.6-76.8-57.6-128-44.8 0-89.6 0-134.4 0C172.8 390.4 147.2 396.8 128 403.2 57.6 428.8 0 499.2 0 576c0 51.2 0 102.4 0 160 0 6.4 0 6.4 6.4 12.8 51.2 12.8 102.4 25.6 153.6 32 19.2 0 44.8 6.4 64 6.4 0-12.8 0-25.6 0-38.4 0-19.2 0-38.4 6.4-57.6C249.6 614.4 294.4 563.2 358.4 531.2z"  /><path d="M1024 588.8c0-25.6-6.4-57.6-19.2-83.2-38.4-76.8-96-115.2-179.2-115.2-121.6 0 0 0-121.6 0 0 51.2-19.2 96-57.6 128 6.4 0 12.8 6.4 12.8 6.4 32 12.8 64 32 89.6 57.6 38.4 44.8 57.6 96 57.6 153.6 0 12.8 0 32 0 44.8 32-6.4 57.6-6.4 89.6-12.8 38.4-6.4 83.2-19.2 121.6-38.4 6.4 0 6.4-6.4 6.4-12.8C1024 684.8 1024 633.6 1024 588.8z"  /><path d="M518.4 537.6c83.2 0 153.6-70.4 147.2-153.6 0-83.2-70.4-147.2-147.2-147.2-83.2 0-153.6 64-153.6 147.2C371.2 467.2 435.2 537.6 518.4 537.6z"  /><path d="M704 371.2C723.2 377.6 742.4 384 768 384c83.2 0 153.6-70.4 147.2-153.6 0-83.2-70.4-147.2-147.2-147.2-83.2 0-153.6 64-153.6 147.2C665.6 256 697.6 307.2 704 371.2z"  /><path d="M256 384c25.6 0 57.6-6.4 76.8-19.2 6.4-51.2 32-96 70.4-121.6 0 0 0-6.4 0-6.4 0-83.2-70.4-147.2-147.2-147.2-83.2 0-153.6 64-153.6 147.2C102.4 313.6 172.8 384 256 384z"  /></svg>            </div>
             <span class="nav-link-text ms-1">Teams</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/tables.html">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>office</title>
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-1869.000000, -293.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <g transform="translate(1716.000000, 291.000000)">
-                      <g id="office" transform="translate(153.000000, 2.000000)">
-                        <path class="color-background opacity-6" d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 C32.46775,0 33.25,0.78225 33.25,1.75 L33.25,12.25 L29.75,12.25 L29.75,3.5 L12.25,3.5 L12.25,17.5 Z"></path>
-                        <path class="color-background" d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 L19.25,38.5 L19.25,22.75 C19.25,21.78225 18.46775,21 17.5,21 L1.75,21 C0.78225,21 0,21.78225 0,22.75 L0,40.25 C0,41.21775 0.78225,42 1.75,42 L40.25,42 C41.21775,42 42,41.21775 42,40.25 L42,15.75 C42,14.78225 41.21775,14 40.25,14 Z M12.25,36.75 L7,36.75 L7,33.25 L12.25,33.25 L12.25,36.75 Z M12.25,29.75 L7,29.75 L7,26.25 L12.25,26.25 L12.25,29.75 Z M35,36.75 L29.75,36.75 L29.75,33.25 L35,33.25 L35,36.75 Z M35,29.75 L29.75,29.75 L29.75,26.25 L35,26.25 L35,29.75 Z M35,22.75 L29.75,22.75 L29.75,19.25 L35,19.25 L35,22.75 Z"></path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <span class="nav-link-text ms-1">Tables</span>
-          </a>
-        </li>
-{#        <li class="nav-item">#}
-{#          <a class="nav-link {% if 'billing' in segment %} active {% endif %}" href="/billing.html">#}
-{#            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">#}
-{#              <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">#}
-{#                <title>credit-card</title>#}
-{#                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">#}
-{#                  <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">#}
-{#                    <g transform="translate(1716.000000, 291.000000)">#}
-{#                      <g transform="translate(453.000000, 454.000000)">#}
-{#                        <path class="color-background opacity-6" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"></path>#}
-{#                        <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>#}
-{#                      </g>#}
-{#                    </g>#}
-{#                  </g>#}
-{#                </g>#}
-{#              </svg>#}
-{#            </div>#}
-{#            <span class="nav-link-text ms-1">Billing</span>#}
-{#          </a>#}
-{#        </li>#}
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="/profile.html">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>customer-support</title>
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <g transform="translate(1716.000000, 291.000000)">
-                      <g transform="translate(1.000000, 0.000000)">
-                        <path class="color-background opacity-6" d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z"></path>
-                        <path class="color-background" d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z"></path>
-                        <path class="color-background" d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z"></path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
       </ul>

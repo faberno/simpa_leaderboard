@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from apps.home import blueprint
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, current_app
 from jinja2 import TemplateNotFound
 
 from apps.models import Team, Member
@@ -13,17 +13,13 @@ import requests
 
 @blueprint.route('/')
 def default():
-
-    # team1 = Team("TeamGen1", "https://github.com/faberno.png")
-    # db.session.add(team1)
-    # team2 = Team("TeamGen2", "https://github.com/faberno.png")
-    # db.session.add(team2)
-    # db.session.commit()
-    return render_template('home/index.html', segment='index')
+    teams = Team.query.order_by(Team.points.desc()).all()
+    members = Member.query.all()
+    return render_template('home/index.html', segment='index', teams=teams, members=members)
 
 @blueprint.route('/index')
 def index():
-    return render_template('home/index.html', segment='index')
+    return default()
 
 
 @blueprint.route('/teams', methods=['GET', 'POST'])
@@ -33,18 +29,22 @@ def teams():
         img_url = request.form['img_url']
 
         if team_name:
-            new_team = Team(name=team_name, img_link=img_url)
-            db.session.add(new_team)
-            db.session.commit()
-            return redirect(url_for('home_blueprint.teams'))
-
+            team_exists = Team.query.filter_by(name=team_name).first() is not None
+            if not team_exists:
+                new_team = Team(name=team_name, img_link=img_url)
+                db.session.add(new_team)
+                db.session.commit()
+                return redirect(url_for('home_blueprint.teams'))
+            else:
+                flash(f"Team '{team_name}' already exists.", "danger")
     teams = Team.query.all()
     return render_template('home/teams.html', segment='teams', teams=teams)
 
 
 @blueprint.route('/add_member/<team_name>', methods=['POST'])
 def add_member(team_name):
-    member_name = request.form.get(f'member_name_{team_name}')
+    current_app.logger.info(f"Received POST request to add team: {team_name}")
+    member_name = request.form.get(f'member_name_{team_name}').strip()
 
     if member_name:
         github_user_url = f"https://api.github.com/users/{member_name}"
@@ -68,26 +68,6 @@ def add_member(team_name):
             flash(f"GitHub user '{member_name}' does not exist.", "danger")
 
     return redirect(url_for('home_blueprint.teams'))
-
-# @blueprint.route('/<template>')
-# def route_template(template):
-#
-#     try:
-#
-#         if not template.endswith('.html'):
-#             template += '.html'
-#
-#         # Detect the current page
-#         segment = get_segment(request)
-#
-#         # Serve the file (if exists) from app/templates/home/FILE.html
-#         return render_template("home/" + template, segment=segment)
-#
-#     except TemplateNotFound:
-#         return render_template('home/page-404.html'), 404
-#
-#     except:
-#         return render_template('home/page-500.html'), 500
 
 
 # Helper - Extract current page name from request
