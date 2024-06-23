@@ -34,10 +34,10 @@ class PointCalculation(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.DateTime, nullable=False)
 
-class TeamTotalpointCheckpoint(db.Model):
-    point_calculation_id = db.Column(db.Integer, db.ForeignKey(PointCalculation.id), primary_key=True)
-    team_name = db.Column(db.Integer, db.ForeignKey(Team.name), primary_key=True)
-    points = db.Column(db.Integer, nullable=False)
+# class TeamTotalpointCheckpoint(db.Model):
+#     point_calculation_id = db.Column(db.Integer, db.ForeignKey(PointCalculation.id), primary_key=True)
+#     team_name = db.Column(db.String, db.ForeignKey(Team.name), primary_key=True)
+#     points = db.Column(db.Integer, nullable=False)
 
 class HackathonStats(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

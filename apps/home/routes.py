@@ -9,7 +9,7 @@ from apps.home import blueprint
 from flask import render_template, redirect, request, url_for, flash, current_app
 from jinja2 import TemplateNotFound
 
-from apps.models import Team, Member, HackathonStats, PointCalculation, TeamTotalpointCheckpoint, ReachedAchievement, AchievementType
+from apps.models import Team, Member, HackathonStats, PointCalculation, ReachedAchievement #TeamTotalpointCheckpoint, ReachedAchievement, AchievementType
 from apps import db
 import github
 from datetime import datetime
