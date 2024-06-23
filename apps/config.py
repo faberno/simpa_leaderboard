@@ -28,29 +28,13 @@ class Config(object):
     DB_PORT     = os.getenv('DB_PORT'     , None)
     DB_NAME     = os.getenv('DB_NAME'     , None)
 
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI' , None)
+
     USE_SQLITE  = True 
 
     # try to set up a Relational DBMS
-    if DB_ENGINE and DB_NAME and DB_USERNAME:
-
-        try:
-            
-            # Relational DBMS: PSQL, MySql
-            SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
-                DB_ENGINE,
-                DB_USERNAME,
-                DB_PASS,
-                DB_HOST,
-                DB_PORT,
-                DB_NAME
-            ) 
-
-            USE_SQLITE  = False
-
-        except Exception as e:
-
-            print('> Error: DBMS Exception: ' + str(e) )
-            print('> Fallback to SQLite ')    
+    if SQLALCHEMY_DATABASE_URI:
+        USE_SQLITE = False
 
     if USE_SQLITE:
 
@@ -72,8 +56,4 @@ class DebugConfig(Config):
 config_dict = {
     'Production': ProductionConfig,
     'Debug'     : DebugConfig
-}
-
-API_GENERATOR = {
-    "books": "Book",
 }
