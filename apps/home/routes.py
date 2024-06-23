@@ -121,7 +121,7 @@ def recalculate():
     n_issues_opened = 0
     n_prs_opened = 0
     loc_changed = 0
-    ReachedAchievement.query.filter_by(permanent=0).delete()
+    ReachedAchievement.query.filter_by(permanent=False).delete()
     for issue in issues_and_prs:
         user = Member.query.get(issue.user.login)
         if not user:
