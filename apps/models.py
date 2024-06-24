@@ -52,12 +52,27 @@ class AchievementType(db.Model):
 
 class ReachedAchievement(db.Model):
     title = db.Column(db.String, primary_key=True)
-    team = db.Column(db.String, db.ForeignKey('team.name'), primary_key=True)
+    member = db.Column(db.String, db.ForeignKey('member.name'), primary_key=True)
     point_calculation_id = db.Column(db.Integer, db.ForeignKey(PointCalculation.id), primary_key=True)
     achievement_type = db.Column(db.String, db.ForeignKey(AchievementType.name), nullable=False)
     creation_date = db.Column(db.DateTime, nullable=False)
     points = db.Column(db.Integer, nullable=False)
     permanent = db.Column(db.Boolean, nullable=False)
+
+class FinalAchievement(db.Model):
+    title = db.Column(db.String, primary_key=True)
+    member = db.Column(db.String, db.ForeignKey('member.name'), primary_key=True)
+    point_calculation_id = db.Column(db.Integer, db.ForeignKey(PointCalculation.id), primary_key=True)
+    achievement_type = db.Column(db.String, db.ForeignKey(AchievementType.name), nullable=False)
+    creation_date = db.Column(db.DateTime, nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    permanent = db.Column(db.Boolean, nullable=False)
+
+class Issue(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    name = db.Column(db.String, nullable=False)
+    priority = db.Column(db.Integer, nullable=False)
+    difficulty = db.Column(db.Integer, nullable=False)
 
 
 def fill_static_tables():

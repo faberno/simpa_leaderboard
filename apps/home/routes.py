@@ -31,6 +31,11 @@ def calculate_points_of():
     ...
 
 
+@blueprint.route('/ping')
+def ping():
+    current_app.logger.info('Pinged!')
+    return "Ping!"
+
 @blueprint.route('/')
 def default():
     teams = Team.query.order_by(Team.points.desc()).all()
