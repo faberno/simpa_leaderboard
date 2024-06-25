@@ -338,6 +338,7 @@ def calculate_onetime_challenges(calculation_entry):
                                                  points=onetime_challenges[title], permanent=False)
                 db.session.add(achievement)
                 db.session.flush()
+    db.session.commit()
 
 
 @blueprint.route('/update')
@@ -354,6 +355,16 @@ def update():
     repo = g.get_repo(repo_name)
     issues_and_prs = repo.get_issues(since=hackathon_start, sort='created', direction='asc', state='all')
     issues_and_prs = list(filter(lambda i: date_after_start(i.created_at), issues_and_prs))
+
+    for issue in issues_and_prs:
+        if issue.pull_request is None and ("hacking week" in [l.name for l in issue.labels]):
+            existing_issue = Issue.query.get(issue.number)
+            if existing_issue is None:
+                new_issue = Issue(id=issue.number, name=issue.title, priority=0, difficulty=0, issue_state=issue.state)
+                db.session.add(new_issue)
+                db.session.flush()
+    db.session.commit()
+
 
     # collect all point worthy achievements
     ReachedAchievement.query.filter_by(permanent=False).delete() # calculate unpermanent ones new every time

@@ -88,23 +88,23 @@ def fill_static_tables():
         db.session.add(AchievementType(name="One-Time Challenge"))
         db.session.commit()
 
-    if len(Team.query.all()) == 0:
-        db.session.add(Team(name="Team 1", img_link=None))
-        db.session.add(Team(name="Team 2", img_link=None))
-        db.session.add(Team(name="Team 3", img_link=None))
-        db.session.add(Team(name="Team 4", img_link=None))
-        db.session.commit()
+    # if len(Team.query.all()) == 0:
+    #     db.session.add(Team(name="Team 1", img_link=None))
+    #     db.session.add(Team(name="Team 2", img_link=None))
+    #     db.session.add(Team(name="Team 3", img_link=None))
+    #     db.session.add(Team(name="Team 4", img_link=None))
+    #     db.session.commit()
 
-    if len(Member.query.all()) == 0:
-        db.session.add(Member(name="faberno", team_name="Team 1"))
-        db.session.add(Member(name="kdreher", team_name="Team 1"))
-        db.session.add(Member(name="leoyala", team_name="Team 2"))
-        db.session.add(Member(name="RecurvedBow", team_name="Team 2"))
-        db.session.add(Member(name="frisograce", team_name="Team 3"))
-        db.session.add(Member(name="jgroehl", team_name="Team 3"))
-        db.session.add(Member(name="cbender98", team_name="Team 4"))
-        db.session.add(Member(name="TomTomRixRix", team_name="Team 4"))
-        db.session.commit()
+    # if len(Member.query.all()) == 0:
+    #     db.session.add(Member(name="faberno", team_name="Team 1"))
+    #     db.session.add(Member(name="kdreher", team_name="Team 1"))
+    #     db.session.add(Member(name="leoyala", team_name="Team 2"))
+    #     db.session.add(Member(name="RecurvedBow", team_name="Team 2"))
+    #     db.session.add(Member(name="frisograce", team_name="Team 3"))
+    #     db.session.add(Member(name="jgroehl", team_name="Team 3"))
+    #     db.session.add(Member(name="cbender98", team_name="Team 4"))
+    #     db.session.add(Member(name="TomTomRixRix", team_name="Team 4"))
+    #     db.session.commit()
 
     if len(Issue.query.all()) == 0:
 
