@@ -113,16 +113,24 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Points</th>
                   </tr>
                 </thead>
                 <tbody>
-                {% for key in eastereggs.keys() %}
+                {% for key, val in eastereggs.items() %}
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{ key }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                      <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ val }}</h6>
                         </div>
                       </div>
                     </td>

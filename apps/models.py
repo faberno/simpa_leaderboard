@@ -86,25 +86,32 @@ def fill_static_tables():
         db.session.add(AchievementType(name="PullRequest"))
         db.session.add(AchievementType(name="Review"))
         db.session.add(AchievementType(name="One-Time Challenge"))
+        db.session.add(AchievementType(name="Easter Egg"))
         db.session.commit()
 
     # if len(Team.query.all()) == 0:
-    #     db.session.add(Team(name="Team 1", img_link=None))
-    #     db.session.add(Team(name="Team 2", img_link=None))
-    #     db.session.add(Team(name="Team 3", img_link=None))
-    #     db.session.add(Team(name="Team 4", img_link=None))
+    #     db.session.add(Team(name="The editors", img_link=None))
+    #     db.session.add(Team(name="Trix and the IMSY Dinosaur", img_link=None))
+    #     db.session.add(Team(name="BEER - BEating evERyone ;)", img_link=None))
+    #     db.session.add(Team(name="Shortcutters", img_link=None))
+    #     db.session.add(Team(name="Cool Cats", img_link=None))
+    #     db.session.commit()
+    #
+    # if len(Member.query.all()) == 0:
+    #     db.session.add(Member(name="faberno", team_name="Cool Cats"))
+    #     db.session.add(Member(name="jnoelke", team_name="The editors"))
+    #     db.session.add(Member(name="jonasburian", team_name="The editors"))
+    #     db.session.add(Member(name="TomTomRixRix", team_name="Trix and the IMSY Dinosaur"))
+    #     db.session.add(Member(name="seitela", team_name="Trix and the IMSY Dinosaur"))
+    #     db.session.add(Member(name="marcelmknopp", team_name="Shortcutters"))
+    #     db.session.add(Member(name="cbender98", team_name="Shortcutters"))
     #     db.session.commit()
 
-    # if len(Member.query.all()) == 0:
-    #     db.session.add(Member(name="faberno", team_name="Team 1"))
-    #     db.session.add(Member(name="kdreher", team_name="Team 1"))
-    #     db.session.add(Member(name="leoyala", team_name="Team 2"))
-    #     db.session.add(Member(name="RecurvedBow", team_name="Team 2"))
-    #     db.session.add(Member(name="frisograce", team_name="Team 3"))
-    #     db.session.add(Member(name="jgroehl", team_name="Team 3"))
-    #     db.session.add(Member(name="cbender98", team_name="Team 4"))
-    #     db.session.add(Member(name="TomTomRixRix", team_name="Team 4"))
-    #     db.session.commit()
+
+    # r = ReachedAchievement(title='Max Verstappen: Fastest team to score any points', achievement_type='Easter Egg', member='TomTomRixRix', point_calculation_id=27,
+    #                    creation_date=datetime.now(tz=tz), points=15, labels=",", permanent=True)
+    # db.session.add(r)
+    # db.session.commit()
 
     if len(Issue.query.all()) == 0:
 

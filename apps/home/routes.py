@@ -48,6 +48,10 @@ eastereggs = {
     'Team Title Titans': 'Best team name',
     'Issue Improviser': 'Create PR for Issue that is not part of the hacking week',
     'Max Verstappen': 'Fastest team to score any points',
+    'FIXME Fixer': 'Fix a FIXME',
+    'TODO Doner': 'Do a TODO',
+    'Off-By-One Obliterator': 'Finally and forever fix "off-by-one-error"',
+    'Commit Message Maestro': 'Most creative commit message'
 }
 
 
@@ -71,7 +75,7 @@ def index():
 @blueprint.route('/teams', methods=['GET', 'POST'])
 def teams():
     if request.method == 'POST':
-        team_name = request.form['team_name']
+        team_name = request.form['team_name'].strip()
         img_url = request.form['img_url']
 
         if team_name:
@@ -99,7 +103,15 @@ def issues():
 
 @blueprint.route('/challenges')
 def challenges():
-    return render_template('home/challenges.html', segment='challenges', onetime_challenges=onetime_challenges, eastereggs=eastereggs)
+    easteregg_ach = ReachedAchievement.query.filter_by(achievement_type='Easter Egg').all()
+    easteregg_ach = [a.title.split(':')[0] for a in easteregg_ach]
+    display_eastereggs = dict()
+    for title, descr in eastereggs.items():
+        if title in easteregg_ach:
+            display_eastereggs[title] = descr
+        else:
+            display_eastereggs[title] = ""
+    return render_template('home/challenges.html', segment='challenges', onetime_challenges=onetime_challenges, eastereggs=display_eastereggs)
 
 @blueprint.route('/add_member/<team_name>', methods=['POST'])
 def add_member(team_name):
@@ -353,11 +365,11 @@ def update():
 
     g = github.Github(auth=github.Auth.Token(github_token))
     repo = g.get_repo(repo_name)
-    issues_and_prs = repo.get_issues(since=hackathon_start, sort='created', direction='asc', state='all')
+    issues_and_prs = repo.get_issues(since=hackathon_start, sort='created', direction='asc', state='all', labels=['hacking week'])
     issues_and_prs = list(filter(lambda i: date_after_start(i.created_at), issues_and_prs))
 
     for issue in issues_and_prs:
-        if issue.pull_request is None and ("hacking week" in [l.name for l in issue.labels]):
+        if issue.pull_request is None:
             existing_issue = Issue.query.get(issue.number)
             if existing_issue is None:
                 new_issue = Issue(id=issue.number, name=issue.title, priority=0, difficulty=0, issue_state=issue.state)
