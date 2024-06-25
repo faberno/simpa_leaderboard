@@ -29,7 +29,6 @@ class Config(object):
     DB_NAME     = os.getenv('DB_NAME'     , None)
 
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI' , None)
-
     USE_SQLITE  = True 
 
     # try to set up a Relational DBMS
@@ -37,7 +36,6 @@ class Config(object):
         USE_SQLITE = False
 
     if USE_SQLITE:
-
         # This will create a file in <app> FOLDER
         SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')          
              

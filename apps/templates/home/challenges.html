@@ -1,0 +1,148 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="container-fluid py-4">
+
+      <div class="row my-4">
+      <div class="col-lg-11 col-md-6 mb-md-0 mb-4">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h6>Challenges</h6>
+              </div>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive">
+            <p class="text-sm mb-0 ps-3">
+              Ongoing Challenges
+            </p>
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Opening an Issue</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="text-align: center">
+                        <h6 class="mb-0 text-sm">+10</h6>
+                    </td>
+                  </tr>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Creating a Pull Request</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="text-align: center">
+                        <h6 class="mb-0 text-sm">+20</h6>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Reviewing another teams PR</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="text-align: center">
+                        <h6 class="mb-0 text-sm">+5</h6>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive">
+            <p class="text-sm mb-0 ps-3">
+              One-Time Challenges
+            </p>
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for key, value in onetime_challenges.items() %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ key }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="text-align: center">
+                        <h6 class="mb-0 text-sm">+{{ value }}</h6>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <div class="card-body px-0 pb-2">
+            <div class="table-responsive">
+            <p class="text-sm mb-0 ps-3">
+              Easter Eggs
+            </p>
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for key in eastereggs.keys() %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ key }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="text-align: center">
+                        <h6 class="mb-0 text-sm">+15</h6>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}

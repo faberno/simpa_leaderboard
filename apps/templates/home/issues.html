@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Teams {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="container-fluid py-4">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Issues</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <form method="POST" action="{{ url_for('home_blueprint.teams') }}">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Issue</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Difficulty</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Priority</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Team</th>
+{#                    <th class="text-secondary opacity-7"></th>#}
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for issue in issues %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">
+                              <a href="https://github.com/IMSY-DKFZ/simpa/issues/{{ issue.id }}">{{ truncate_string(issue.name) }}</a>
+                          </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="text-align: center">
+                          <h6 class="mb-0 text-sm">{{ issue.difficulty }}</h6>
+                    </td>
+                    <td class="align-middle text-center">
+                        <h6 class="mb-0 text-sm">{{ issue.priority }}</h6>
+                    </td>
+                    <td style="text-align: center"> {# team #}
+                        {% if issue.team %}
+                            <img src="{{ issue.team.img_link }}" class="avatar avatar-sm " alt="team logo" title="{{ issue.team.name }}">
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td> {# assign team #}
+                        {% if issue.team %}
+                            <button class="btn btn-sm btn-primary" type="submit" formaction="{{ url_for('home_blueprint.unassign_issue', issue_id=issue.id) }}">Unassign Team</button>
+                        {% else %}
+                          <div class="d-flex flex-row px-2 py-1">
+                            <input type="text" class="form-control form-control-sm mb-2" name="team_name_{{ issue.id }}" placeholder="team name">
+                            <button class="btn btn-sm btn-primary mb-2" type="submit" formaction="{{ url_for('home_blueprint.assign_issue', issue_id=issue.id) }}" >Assign Team</button>
+                          </div>
+                        {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
