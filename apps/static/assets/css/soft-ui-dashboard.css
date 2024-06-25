@@ -7451,6 +7451,10 @@ textarea.form-control-lg {
   opacity: 1 !important;
 }
 
+.black {
+    color:black
+}
+
 .overflow-auto {
   overflow: auto !important;
 }
