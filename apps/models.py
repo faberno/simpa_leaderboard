@@ -85,6 +85,7 @@ def fill_static_tables():
         db.session.add(AchievementType(name="Issue"))
         db.session.add(AchievementType(name="PullRequest"))
         db.session.add(AchievementType(name="Review"))
+        db.session.add(AchievementType(name="One-Time Challenge"))
         db.session.commit()
 
     if len(Team.query.all()) == 0:
