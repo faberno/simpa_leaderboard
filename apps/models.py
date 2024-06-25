@@ -75,7 +75,7 @@ class Issue(db.Model):
     name = db.Column(db.String, nullable=False)
     priority = db.Column(db.Integer, nullable=False)
     difficulty = db.Column(db.Integer, nullable=False)
-    state = db.Column(db.String, nullable=False)
+    issue_state = db.Column(db.String, nullable=False)
     team_id = db.Column(db.Integer, db.ForeignKey('team.team_id'), autoincrement=False)
     team = db.relationship('Team', backref=db.backref('issue', lazy=True))
 
@@ -118,7 +118,7 @@ def fill_static_tables():
                     priority, difficulty = predefined.get(i.number)
                 else:
                     priority, difficulty = 0, 0
-                db.session.add(Issue(id=i.number, name=i.title, priority=priority, difficulty=difficulty, state=i.state))
+                db.session.add(Issue(id=i.number, name=i.title, priority=priority, difficulty=difficulty, issue_state=i.state))
             db.session.commit()
 
 

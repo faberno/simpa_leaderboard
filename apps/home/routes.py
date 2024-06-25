@@ -94,7 +94,7 @@ def team_info(id):
 
 @blueprint.route('/issues')
 def issues():
-    issues = Issue.query.filter_by(state='open').all()
+    issues = Issue.query.filter_by(issue_state='open').all()
     return render_template('home/issues.html', segment='issues', issues=issues)
 
 @blueprint.route('/challenges')
