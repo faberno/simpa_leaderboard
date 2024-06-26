@@ -113,6 +113,18 @@ def challenges():
             display_eastereggs[title] = ""
     return render_template('home/challenges.html', segment='challenges', onetime_challenges=onetime_challenges, eastereggs=display_eastereggs)
 
+
+@blueprint.route('/rate_issue/<issue_nr>/<priority>/<difficulty>')
+def rate_issue(issue_nr, priority, difficulty):
+    issue = Issue.query.get(int(issue_nr))
+    if issue:
+        issue.priority = int(priority)
+        issue.difficulty = int(difficulty)
+        db.session.commit()
+    return redirect(url_for('home_blueprint.issues'))
+
+
+
 @blueprint.route('/add_member/<team_name>', methods=['POST'])
 def add_member(team_name):
     current_app.logger.info(f"Received POST request to add team: {team_name}")
