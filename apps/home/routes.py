@@ -114,6 +114,75 @@ def challenges():
     return render_template('home/challenges.html', segment='challenges', onetime_challenges=onetime_challenges, eastereggs=display_eastereggs)
 
 
+def get_issue_creation_date(issue):
+    g = github.Github(auth=github.Auth.Token(github_token))
+    repo = g.get_repo(repo_name)
+    issue = repo.get_issue(int(issue))
+    return issue.created_at
+
+
+def argmax(iterable):
+    return max(enumerate(iterable), key=lambda x: x[1])[0]
+
+def argmin(iterable):
+    return min(enumerate(iterable), key=lambda x: x[1])[0]
+
+def get_team_from_issue(issue):
+    creator = issue.user.login
+    creator = Member.query.get(creator)
+    if creator is not None:
+        return creator.team_name
+    return None
+
+@blueprint.route('/make_eastereggs')
+def make_eastereggs():
+    g = github.Github(auth=github.Auth.Token(github_token))
+    repo = g.get_repo(repo_name)
+    issues_and_prs = repo.get_issues(since=hackathon_start, sort='created', direction='asc', state='all', labels=['hacking week'])
+    issues_and_prs = list(filter(lambda i: date_after_start(i.created_at), issues_and_prs))
+    g.close()
+
+    all_issues = [i for i in issues_and_prs if i.pull_request is None]
+    all_prs = [i for i in issues_and_prs if i.pull_request is not None]
+
+    # all_fixed_issues = {pr: get_issue_creation_date(get_linked_issue(pr.body)) for pr in all_prs}
+
+    # oldest_issue_pr = min(all_fixed_issues, key=all_fixed_issues.get)
+    # oldest_issue_fixed = int(get_linked_issue(oldest_issue_pr.body))
+    #
+    # achieve = ReachedAchievement(title=f"Time Traveler: Resolve the oldest issue", member=oldest_issue_pr.user.login,
+    #                    point_calculation_id=27,
+    #                    achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                    points=15, labels='', permanent=False)
+    # db.session.add(achieve)
+    # db.session.commit()
+
+    # -----------------------
+    from collections import Counter
+    issue_teams = [get_team_from_issue(i) for i in all_issues]
+    issue_count = Counter(issue_teams)
+    max_issues = max(issue_count.values())
+    for team in issue_count.keys():
+        if team is not None and issue_count[team] == max_issues:
+            member = Member.query.filter_by(team_name=team).first()
+            achieve = ReachedAchievement(title=f"Complaint Champion: Open most issues", member=member.name,
+                               point_calculation_id=27,
+                               achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                               points=15, labels='', permanent=False)
+            db.session.add(achieve)
+            db.session.commit()
+
+    easteregg_ach = ReachedAchievement.query.filter_by(achievement_type='Easter Egg').all()
+    easteregg_ach = [a.title.split(':')[0] for a in easteregg_ach]
+    display_eastereggs = dict()
+    for title, descr in eastereggs.items():
+        if title in easteregg_ach:
+            display_eastereggs[title] = descr
+        else:
+            display_eastereggs[title] = ""
+    return render_template('home/challenges.html', segment='challenges', onetime_challenges=onetime_challenges, eastereggs=display_eastereggs)
+
+
 @blueprint.route('/rate_issue/<issue_nr>/<priority>/<difficulty>')
 def rate_issue(issue_nr, priority, difficulty):
     issue = Issue.query.get(int(issue_nr))
@@ -409,6 +478,7 @@ def update():
         team.points = team_points
         db.session.flush()
     db.session.commit()
+    g.close()
     return redirect(url_for('home_blueprint.default'))
 
 # Helper - Extract current page name from request
