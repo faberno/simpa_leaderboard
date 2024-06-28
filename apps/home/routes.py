@@ -51,7 +51,7 @@ eastereggs = {
     'FIXME Fixer': 'Fix a FIXME',
     'TODO Doner': 'Do a TODO',
     'Off-By-One Obliterator': 'Finally and forever fix "off-by-one-error"',
-    'Commit Message Maestro': 'Most creative commit message'
+    'Commit Message Maestro': 'Most typos in the commit messages'
 }
 
 
@@ -270,6 +270,58 @@ def make_eastereggs(perma):
                                points=15, labels='', permanent=perma)
             db.session.add(achieve)
             db.session.commit()
+
+    # -----------------------
+    achieve = ReachedAchievement(title=f"Team Title Titans: Best team name", member='seitela',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
+
+    # -----------------------
+    achieve = ReachedAchievement(title=f"Doc Dynamo: Best Documentation", member='frisograce',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
+
+    # -----------------------
+    achieve = ReachedAchievement(title=f"Commit Message Maestro: Most typos in the commit messages", member='jnoelke',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
+    # -----------------------
+    achieve = ReachedAchievement(title=f"Test Titan: Most Tests added", member='RecurvedBow',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
+    # -----------------------
+    achieve = ReachedAchievement(title=f"Rage Cage Mage: Win Rage Cage", member='seitela',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
+    # -----------------------
+    # achieve = ReachedAchievement(title=f"Beer Pong Baron: Win the Beer Pong Tournament", member='',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    # # -----------------------
+    # achieve = ReachedAchievement(title=f"Looping Louie Legend: Win Looping Louie", member='',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
 
     return redirect(url_for('home_blueprint.default'))
 
