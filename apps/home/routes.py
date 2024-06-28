@@ -42,9 +42,9 @@ eastereggs = {
     'Test Titan': 'Most Tests added',
     'Mega Merger': 'Largest PR',
     'Slip-up Sleuth': 'Most embarrassing bug found',
-    'Beer Pong Baron': 'Win the Beer Pong Tournament',
+    'Beer Pong Baron': 'Best efforts in the Beer Pong Tournament',
     'Rage Cage Mage': 'Win Rage Cage',
-    'Looping Louie Legend': 'Win Looping Louie',
+    'Looping Louie Legend': 'Best efforts in the Looping Louie Tournament',
     'Team Title Titans': 'Best team name',
     'Issue Improviser': 'Create PR for Issue that is not part of the hacking week',
     'Max Verstappen': 'Fastest team to score any points',
@@ -295,7 +295,7 @@ def make_eastereggs(perma):
     db.session.add(achieve)
     db.session.commit()
     # -----------------------
-    achieve = ReachedAchievement(title=f"Test Titan: Most Tests added", member='RecurvedBow',
+    achieve = ReachedAchievement(title=f"Test Titan: Most Tests added", member='TomTomRixRix',
                                  point_calculation_id=27,
                                  achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
                                  points=15, labels='', permanent=perma)
@@ -309,19 +309,26 @@ def make_eastereggs(perma):
     db.session.add(achieve)
     db.session.commit()
     # -----------------------
-    # achieve = ReachedAchievement(title=f"Beer Pong Baron: Win the Beer Pong Tournament", member='',
-    #                              point_calculation_id=27,
-    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-    #                              points=15, labels='', permanent=perma)
-    # db.session.add(achieve)
-    # db.session.commit()
+    achieve = ReachedAchievement(title=f"Beer Pong Baron: Best efforts in the Beer Pong Tournament", member='jnoelke',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=20, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
     # # -----------------------
-    # achieve = ReachedAchievement(title=f"Looping Louie Legend: Win Looping Louie", member='',
-    #                              point_calculation_id=27,
-    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-    #                              points=15, labels='', permanent=perma)
-    # db.session.add(achieve)
-    # db.session.commit()
+    achieve = ReachedAchievement(title=f"Looping Louie Legend: Best efforts in the Looping Louie Tournament", member='marcelmknopp',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=10, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
+    # # -----------------------
+    achieve = ReachedAchievement(title=f"Issue Improviser: Create PR for Issue that is not part of the hacking week", member='jnoelke',
+                                 point_calculation_id=27,
+                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                 points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.commit()
 
     return redirect(url_for('home_blueprint.default'))
 
