@@ -272,63 +272,63 @@ def make_eastereggs(perma):
             db.session.commit()
 
     # -----------------------
-    achieve = ReachedAchievement(title=f"Team Title Titans: Best team name", member='seitela',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=15, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
-
-    # -----------------------
-    achieve = ReachedAchievement(title=f"Doc Dynamo: Best Documentation", member='frisograce',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=15, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
-
-    # -----------------------
-    achieve = ReachedAchievement(title=f"Commit Message Maestro: Most typos in the commit messages", member='jnoelke',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=15, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
-    # -----------------------
-    achieve = ReachedAchievement(title=f"Test Titan: Most Tests added", member='TomTomRixRix',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=15, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
-    # -----------------------
-    achieve = ReachedAchievement(title=f"Rage Cage Mage: Win Rage Cage", member='seitela',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=15, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
-    # -----------------------
-    achieve = ReachedAchievement(title=f"Beer Pong Baron: Best efforts in the Beer Pong Tournament", member='jnoelke',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=20, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
+    # achieve = ReachedAchievement(title=f"Team Title Titans: Best team name", member='seitela',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    #
     # # -----------------------
-    achieve = ReachedAchievement(title=f"Looping Louie Legend: Best efforts in the Looping Louie Tournament", member='marcelmknopp',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=10, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
+    # achieve = ReachedAchievement(title=f"Doc Dynamo: Best Documentation", member='frisograce',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    #
     # # -----------------------
-    achieve = ReachedAchievement(title=f"Issue Improviser: Create PR for Issue that is not part of the hacking week", member='jnoelke',
-                                 point_calculation_id=27,
-                                 achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                                 points=15, labels='', permanent=perma)
-    db.session.add(achieve)
-    db.session.commit()
+    # achieve = ReachedAchievement(title=f"Commit Message Maestro: Most typos in the commit messages", member='jnoelke',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    # # -----------------------
+    # achieve = ReachedAchievement(title=f"Test Titan: Most Tests added", member='TomTomRixRix',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    # # -----------------------
+    # achieve = ReachedAchievement(title=f"Rage Cage Mage: Win Rage Cage", member='seitela',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    # # -----------------------
+    # achieve = ReachedAchievement(title=f"Beer Pong Baron: Best efforts in the Beer Pong Tournament", member='jnoelke',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=20, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    # # # -----------------------
+    # achieve = ReachedAchievement(title=f"Looping Louie Legend: Best efforts in the Looping Louie Tournament", member='marcelmknopp',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=10, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
+    # # # -----------------------
+    # achieve = ReachedAchievement(title=f"Issue Improviser: Create PR for Issue that is not part of the hacking week", member='jnoelke',
+    #                              point_calculation_id=27,
+    #                              achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+    #                              points=15, labels='', permanent=perma)
+    # db.session.add(achieve)
+    # db.session.commit()
 
     return redirect(url_for('home_blueprint.default'))
 
