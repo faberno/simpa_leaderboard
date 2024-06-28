@@ -115,6 +115,8 @@ def challenges():
 
 
 def get_issue_creation_date(issue):
+    if issue is None:
+        return datetime.now(tz=tz)
     g = github.Github(auth=github.Auth.Token(github_token))
     repo = g.get_repo(repo_name)
     issue = repo.get_issue(int(issue))
@@ -134,8 +136,69 @@ def get_team_from_issue(issue):
         return creator.team_name
     return None
 
-@blueprint.route('/make_eastereggs')
-def make_eastereggs():
+
+def get_pr_data(nr):
+    with github.Github(auth=github.Auth.Token(github_token)) as g:
+        repo = g.get_repo(repo_name)
+        pr = repo.get_pull(nr)
+    return pr
+
+def get_pr_stats(pr):
+    member = Member.query.get(pr.user.login)
+    if member is None:
+        return None
+    pr_data = get_pr_data(pr.number)
+    stats = dict()
+    stats['pr_name'] = pr.title
+    stats['deletions'] = pr_data.deletions
+    stats['additions'] = pr_data.additions
+    stats['fixed_issue_creation'] = get_issue_creation_date(get_linked_issue(pr.body))
+    stats['creator'] = pr.user.login
+    stats['creator_team'] = Member.query.get(pr.user.login).team_name
+    return stats
+
+
+def find_team_with_best_stats(data, stat, func=max):
+    from collections import defaultdict
+    team_stats = defaultdict(int)
+
+    # Aggregate additions for each team
+    for entry in data.values():
+        team_name = entry["creator_team"]
+        stat_val = entry[stat]
+        team_stats[team_name] += stat_val
+
+    # Find the team with the maximum sum of additions
+    max_team = func(team_stats, key=team_stats.get)
+    return max_team, team_stats[max_team]
+
+def find_team_with_most_prs(data, perma):
+    from collections import defaultdict
+    team_stats = defaultdict(int)
+
+    # Aggregate additions for each team
+    for entry in data.values():
+        team_name = entry["creator_team"]
+        team_stats[team_name] += 1
+
+    max_team = max(team_stats.values())
+    for team, val in team_stats.items():
+        if val == max_team:
+            member  = Member.query.filter_by(team_name=team).first()
+            achieve = ReachedAchievement(title=f"Pull Request Power House: Open most PRs ({max_team})",
+                                         member=member.name,
+                                         point_calculation_id=27,
+                                         achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                                         points=15, labels='', permanent=perma)
+            db.session.add(achieve)
+            db.session.flush()
+    return max_team, team_stats[max_team]
+
+@blueprint.route('/make_eastereggs/<perma>')
+def make_eastereggs(perma):
+    ReachedAchievement.query.filter_by(permanent=False).delete()
+
+    perma = perma.lower() == 'true'
     g = github.Github(auth=github.Auth.Token(github_token))
     repo = g.get_repo(repo_name)
     issues_and_prs = repo.get_issues(since=hackathon_start, sort='created', direction='asc', state='all', labels=['hacking week'])
@@ -145,42 +208,70 @@ def make_eastereggs():
     all_issues = [i for i in issues_and_prs if i.pull_request is None]
     all_prs = [i for i in issues_and_prs if i.pull_request is not None]
 
-    # all_fixed_issues = {pr: get_issue_creation_date(get_linked_issue(pr.body)) for pr in all_prs}
+    pr_stats = {pr: stats for pr in all_prs if (stats := get_pr_stats(pr)) is not None}
 
-    # oldest_issue_pr = min(all_fixed_issues, key=all_fixed_issues.get)
-    # oldest_issue_fixed = int(get_linked_issue(oldest_issue_pr.body))
-    #
-    # achieve = ReachedAchievement(title=f"Time Traveler: Resolve the oldest issue", member=oldest_issue_pr.user.login,
-    #                    point_calculation_id=27,
-    #                    achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-    #                    points=15, labels='', permanent=False)
-    # db.session.add(achieve)
-    # db.session.commit()
+    largest_pr = max(pr_stats, key=lambda k: pr_stats[k]['additions'])
+    largest_pr_stats = pr_stats[largest_pr]
+    achieve = ReachedAchievement(title=f"Mega Merger: Largest PR", member=largest_pr.user.login,
+                       point_calculation_id=27,
+                       achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                       points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.flush()
+
+    # ------------------------------------------
+    oldest_issue_fixed = min(pr_stats, key=lambda k: pr_stats[k].get('fixed_issue_creation', datetime.now(tz=tz)))
+    achieve = ReachedAchievement(title=f"Time Traveler: Resolve the oldest issue", member=oldest_issue_fixed.user.login,
+                       point_calculation_id=27,
+                       achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                       points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.flush()
+
+    # ------------------------------------------
+
+    max_addition_team = find_team_with_best_stats(pr_stats, 'additions', max)
+    member = Member.query.filter_by(team_name=max_addition_team[0]).first()
+    achieve = ReachedAchievement(title=f"LOC Lunatic: Most LOC added ({max_addition_team[1]})", member=member.name,
+                       point_calculation_id=27,
+                       achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                       points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.flush()
+
+    # ------------------------------------------
+
+    max_deletions_team  = find_team_with_best_stats(pr_stats, 'deletions', max)
+    member = Member.query.filter_by(team_name=max_deletions_team[0]).first()
+    achieve = ReachedAchievement(title=f"Code Cleaner: Most LOC removed ({max_deletions_team[1]})", member=member.name,
+                       point_calculation_id=27,
+                       achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
+                       points=15, labels='', permanent=perma)
+    db.session.add(achieve)
+    db.session.flush()
+
+    # ------------------------------------------
+
+    max_deletions_team  = find_team_with_most_prs(pr_stats, perma)
 
     # -----------------------
     from collections import Counter
     issue_teams = [get_team_from_issue(i) for i in all_issues]
     issue_count = Counter(issue_teams)
+    if None in issue_count:
+        del issue_count[None]
     max_issues = max(issue_count.values())
     for team in issue_count.keys():
         if team is not None and issue_count[team] == max_issues:
             member = Member.query.filter_by(team_name=team).first()
-            achieve = ReachedAchievement(title=f"Complaint Champion: Open most issues", member=member.name,
+            achieve = ReachedAchievement(title=f"Complaint Champion: Open most issues ({max_issues})", member=member.name,
                                point_calculation_id=27,
                                achievement_type="Easter Egg", creation_date=datetime.now(tz=tz),
-                               points=15, labels='', permanent=False)
+                               points=15, labels='', permanent=perma)
             db.session.add(achieve)
             db.session.commit()
 
-    easteregg_ach = ReachedAchievement.query.filter_by(achievement_type='Easter Egg').all()
-    easteregg_ach = [a.title.split(':')[0] for a in easteregg_ach]
-    display_eastereggs = dict()
-    for title, descr in eastereggs.items():
-        if title in easteregg_ach:
-            display_eastereggs[title] = descr
-        else:
-            display_eastereggs[title] = ""
-    return render_template('home/challenges.html', segment='challenges', onetime_challenges=onetime_challenges, eastereggs=display_eastereggs)
+    return redirect(url_for('home_blueprint.default'))
 
 
 @blueprint.route('/rate_issue/<issue_nr>/<priority>/<difficulty>')
